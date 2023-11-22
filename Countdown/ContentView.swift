@@ -5,36 +5,36 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(eventsViewModel.sortedEvents) { event in
-                    NavigationLink(
-                        destination: EventDetail(event: event, eventsViewModel: eventsViewModel),
-                        label: {
-                            EventRow(eventsViewModel: eventsViewModel, event: event)
-                        }
-                    )
-                    .padding(.trailing)
-                    .background(event.color)
-                }
-                .listRowInsets(EdgeInsets())
-            }
-            .navigationBarItems(leading:
-                HStack {
-                    Text("Événements")
-                        .font(.system(size: 32))
-                        .bold()
-                },
-                trailing: NavigationLink(destination: AddEventView(eventsViewModel: eventsViewModel)) {
+            VStack {
+                Text("Événements")
+                    .padding(.top, 10)
+                    .padding(.bottom, 15)
+                    .font(.system(size: 24))
+                    .bold()
+                List {
+                    ForEach(eventsViewModel.sortedEvents) { event in
+                        NavigationLink(
+                            destination: EventDetail(event: event, eventsViewModel: eventsViewModel),
+                            label: {
+                                EventRow(eventsViewModel: eventsViewModel, event: event)
+                            }
+                        )
+                        .padding(.trailing)
+                        .background(event.color)
+                    }
+                    .listRowInsets(EdgeInsets())
+                }.listStyle(PlainListStyle())
+                NavigationLink(destination: AddEventView(eventsViewModel: eventsViewModel)) {
                     Image(systemName: "plus")
-                        .padding([.vertical], 8)
-                        .padding([.horizontal], 18)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 32)
                         .background(Color(.black))
                         .foregroundColor(.white)
                         .cornerRadius(10)
-                        .font(.system(size: 20))
+                        .font(.system(size: 24))
                         .bold()
-                }
-            )
+                }.padding(.top, 15)
+            }.background(Color(red: 242, green: 242, blue: 242))
         }
     }
 }

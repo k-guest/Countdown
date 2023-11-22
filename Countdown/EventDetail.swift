@@ -27,8 +27,8 @@ struct EventDetail: View {
                     TextField("Nom de l'événement", text: $editedEventName)
                         .font(.largeTitle)
                         .padding()
-                    ColorPicker("Couleur de l'événement", selection: $editedColor)
                     DatePicker("Date de l'événement", selection: $editedDate, displayedComponents: .date)
+                    ColorPicker("Couleur de l'événement", selection: $editedColor)
                     Picker("Icône de l'événement", selection: $editedIconURL) {
                         ForEach(eventsViewModel.availableIconsURLs, id: \.self) { iconURL in
                             AsyncImage(url: iconURL) { image in
