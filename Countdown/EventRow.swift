@@ -8,7 +8,7 @@ struct EventRow: View {
         HStack {
             Image(systemName: "photo")
                 .load(url: event.selectedIconURL)
-                .frame(width: 30, height: 30)
+                .frame(width: 25, height: 25)
                 .padding(.leading)
             Text(event.name)
             Spacer()

@@ -24,11 +24,9 @@ struct EventDetail: View {
         if isEditing {
             Form {
                 Section(header: Text("Modifier un événement")) {
-                    TextField("Nom de l'événement", text: $editedEventName)
-                        .font(.largeTitle)
-                        .padding()
-                    DatePicker("Date de l'événement", selection: $editedDate, displayedComponents: .date)
-                    Picker("Couleur de l'événement", selection: $editedColor) {
+                    TextField("Nom de l'événement :", text: $editedEventName)
+                    DatePicker("Date de l'événement :", selection: $editedDate, displayedComponents: .date)
+                    Picker("Couleur de l'événement :", selection: $editedColor) {
                         ForEach(eventsViewModel.colors, id: \.self) { color in
                             Button(action: {
                                 self.editedColor = color
@@ -43,12 +41,12 @@ struct EventDetail: View {
                             }
                         }
                     }.pickerStyle(.navigationLink)
-                    Picker("Icône de l'événement", selection: $editedIconURL) {
+                    Picker("Icône de l'événement :", selection: $editedIconURL) {
                         ForEach(eventsViewModel.availableIconsURLs, id: \.self) { iconURL in
                             AsyncImage(url: iconURL) { image in
                                 image
                                     .resizable()
-                                    .frame(width: 30, height: 30)
+                                    .frame(width: 25, height: 25)
                             } placeholder: {
                                 Text("Icône")
                             }
@@ -66,10 +64,24 @@ struct EventDetail: View {
         } else {
             Form {
                 Section(header: Text("Détails de l'événement")) {
-                    Text(editedEventName)
-                        .font(.largeTitle)
+                    Text("Nom : \(editedEventName)")
                     Text("Date : \(formattedDate(for: editedDate))")
-                        .foregroundColor(.gray)
+                    HStack {
+                        Text("Couleur :")
+                        Circle()
+                            .fill(editedColor)
+                            .frame(width: 25, height: 25)
+                    }
+                    HStack {
+                        Text("Icône :")
+                        AsyncImage(url: editedIconURL) { image in
+                            image
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                        } placeholder: {
+                            Text("")
+                        }
+                    }
                 }
                 Section {
                     Button("Modifier") {
