@@ -53,3 +53,9 @@ struct AddEventView: View {
         .navigationBarTitle("Ajouter un événement")
     }
 }
+
+struct AddEventView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddEventView(eventsViewModel: EventsViewModel())
+    }
+}

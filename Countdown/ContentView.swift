@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var eventsViewModel = EventsViewModel()
+    @StateObject var eventsViewModel = EventsViewModel()
 
     var body: some View {
         NavigationView {
