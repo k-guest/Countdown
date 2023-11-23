@@ -34,7 +34,7 @@ struct ContentView: View {
                         .font(.system(size: 24))
                         .bold()
                 }.padding(.top, 15)
-            }.background(Color(red: 242, green: 242, blue: 242))
+            }
         }
     }
 }

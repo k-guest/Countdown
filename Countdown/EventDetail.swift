@@ -2,8 +2,8 @@ import SwiftUI
 
 struct EventDetail: View {
     @State private var editedEventName: String
-    @State private var editedColor: Color
     @State private var editedDate: Date
+    @State private var editedColor: Color
     @State private var editedIconURL: URL
 
     @State private var isEditing = false
@@ -28,7 +28,21 @@ struct EventDetail: View {
                         .font(.largeTitle)
                         .padding()
                     DatePicker("Date de l'événement", selection: $editedDate, displayedComponents: .date)
-                    ColorPicker("Couleur de l'événement", selection: $editedColor)
+                    Picker("Couleur de l'événement", selection: $editedColor) {
+                        ForEach(eventsViewModel.colors, id: \.self) { color in
+                            Button(action: {
+                                self.editedColor = color
+                            }) {
+                                Circle()
+                                    .fill(color)
+                                    .frame(width: 25, height: 25)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color.white, lineWidth: self.editedColor == color ? 3 : 0)
+                                    )
+                            }
+                        }
+                    }.pickerStyle(.navigationLink)
                     Picker("Icône de l'événement", selection: $editedIconURL) {
                         ForEach(eventsViewModel.availableIconsURLs, id: \.self) { iconURL in
                             AsyncImage(url: iconURL) { image in
