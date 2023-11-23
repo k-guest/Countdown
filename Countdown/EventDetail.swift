@@ -7,6 +7,8 @@ struct EventDetail: View {
     @State private var editedIconURL: URL
 
     @State private var isEditing = false
+    
+    @State private var randomLorem: String?
 
     var event: Event
     var eventsViewModel: EventsViewModel
@@ -83,6 +85,21 @@ struct EventDetail: View {
                         }
                     }
                 }
+                // Nouvelle section pour afficher un texte aléatoire depuis l'API
+                // L'objectif de la connexion à l'API est de générer un texte personnalisé en fonction des éléments sélectionnés lors de la création d'un événement.
+                // Exemple : Création d'un événement pour la sortie d'un film au cinéma, identifiable par l'icône Popcorn.
+                // Cette sélection sera identifiable grâce à une mise à jour de l'application.
+                // Le message affiché sera le suivant : "Le 28/02/2023, ne manquez pas la sortie tant attendue du film Dune: Partie 2 au cinéma !"
+                Section(header: Text("Connexion API")) {
+                    if let randomLorem = randomLorem {
+                        Text(randomLorem)
+                    } else {
+                        Text("Chargement du texte...")
+                            .onAppear {
+                                fetchRandomLorem()
+                            }
+                    }
+                }
                 Section {
                     Button("Modifier") {
                         isEditing.toggle()
@@ -104,5 +121,26 @@ struct EventDetail: View {
 
         let dateString = dateFormatter.string(from: date)
         return dateString
+    }
+    
+    private func fetchRandomLorem() {
+        guard let url = URL(string: "https://baconipsum.com/api/?type=all-meat&sentences=1&start-with-lorem=1") else {
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode([String].self, from: data)
+                    if let lorem = decodedResponse.first {
+                        DispatchQueue.main.async {
+                            self.randomLorem = lorem
+                        }
+                    }
+                } catch {
+                    print("Error decoding JSON: \(error)")
+                }
+            }
+        }.resume()
     }
 }

@@ -11,6 +11,7 @@ struct EventRow: View {
                 .frame(width: 25, height: 25)
                 .padding(.leading)
             Text(event.name)
+                .foregroundColor(.black)
             Spacer()
             VStack {
                 Text("\(daysRemaining(for: event.date))")
