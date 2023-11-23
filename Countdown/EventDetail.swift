@@ -57,7 +57,7 @@ struct EventDetail: View {
                 }.navigationBarTitle("Modification de l'événement")
                 Section {
                     Button("Sauvegarder") {
-                        let editedEvent = Event(id: event.id, name: editedEventName, color: editedColor, date: editedDate, selectedIconURL: editedIconURL)
+                        let editedEvent = Event(id: event.id, name: editedEventName, date: editedDate, color: editedColor, selectedIconURL: editedIconURL)
                         eventsViewModel.updateEvent(event: editedEvent)
                         isEditing.toggle()
                     }.foregroundColor(.green)

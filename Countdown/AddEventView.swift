@@ -44,7 +44,7 @@ struct AddEventView: View {
             }
             Section {
                 Button("Ajouter") {
-                    let newEvent = Event(name: eventName, color: selectedCustomColor, date: eventDate, selectedIconURL: selectedIconURL)
+                    let newEvent = Event(name: eventName, date: eventDate, color: selectedCustomColor, selectedIconURL: selectedIconURL)
                     eventsViewModel.events.append(newEvent)
                     presentationMode.wrappedValue.dismiss()
                 }
